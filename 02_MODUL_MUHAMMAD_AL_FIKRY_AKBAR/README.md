@@ -1,8 +1,8 @@
-\ 02\_MODUL\_MUHAMMAD\_AL\_FIKRY\_AKBAR
+02\_MODUL\_MUHAMMAD\_AL\_FIKRY\_AKBAR
 
 
 
-\ Kontribusi Modul
+Kontribusi Modul
 
 
 
@@ -10,7 +10,7 @@ Folder ini berisi kontribusi pada bagian visualisasi pergerakan kendaraan dalam 
 
 
 
-\ Fokus Pengerjaan
+Fokus Pengerjaan
 
 
 
@@ -26,7 +26,7 @@ Kontribusi dalam modul ini difokuskan pada tiga bagian utama, yaitu:
 
 
 
-\ 1. Animasi Kendaraan
+1. Animasi Kendaraan
 
 
 
@@ -60,7 +60,7 @@ Dengan adanya animasi ini, hasil pencarian rute tidak hanya berupa garis jalur, 
 
 
 
-\ 2. Penghalusan Rute Belokan dan Bundaran
+2. Penghalusan Rute Belokan dan Bundaran
 
 
 
@@ -94,7 +94,7 @@ Pada area bundaran, rute tidak dibuat langsung dari titik masuk ke titik keluar 
 
 
 
-\ 3. Visual Truk
+3. Visual Truk
 
 
 
@@ -128,7 +128,7 @@ Dengan adanya visual truk, simulasi menjadi lebih menarik dan mudah dipahami. Pe
 
 
 
-\## Hubungan dengan Algoritma Dijkstra
+Hubungan dengan Algoritma Dijkstra
 
 
 
@@ -156,7 +156,7 @@ Dengan demikian, modul ini tidak mengubah inti algoritma Dijkstra, tetapi menyem
 
 
 
-\ Tujuan Kontribusi
+Tujuan Kontribusi
 
 
 
@@ -178,7 +178,7 @@ Tujuan dari kontribusi ini adalah:
 
 
 
-\ Kesimpulan
+Kesimpulan
 
 
 
