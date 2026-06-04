@@ -4,7 +4,7 @@ Project ini dibuat untuk memenuhi tugas mata kuliah **Perancangan dan Analisis A
 
 Pada project ini, peta kota dibentuk dari kumpulan titik jalan atau persimpangan yang disebut **node**, serta ruas jalan penghubung antar titik yang disebut **edge**. Data node dan edge tersebut digunakan sebagai graph untuk proses pencarian rute. Algoritma Dijkstra digunakan untuk mencari jalur terpendek dari titik awal menuju titik tujuan berdasarkan bobot atau jarak antar titik.
 
-Selain pencarian rute, project ini juga memiliki fitur visualisasi peta, animasi kendaraan, pembentukan jalan, serta analisis kompleksitas algoritma untuk mengetahui performa pencarian rute berdasarkan jumlah node dan edge.
+Selain pencarian rute, project ini juga memiliki fitur visualisasi peta, animasi kendaraan, konstruksi peta, serta analisis kompleksitas algoritma untuk mengetahui performa pencarian rute berdasarkan jumlah node dan edge.
 
 ---
 
@@ -14,8 +14,8 @@ Selain pencarian rute, project ini juga memiliki fitur visualisasi peta, animasi
 2. [Tujuan Project](#tujuan-project)
 3. [Fitur Utama](#fitur-utama)
 4. [Konsep Dasar Project](#konsep-dasar-project)
-5. [Struktur Folder](#struktur-folder)
-6. [Penjelasan Folder dan File](#penjelasan-folder-dan-file)
+5. [Struktur Project Berdasarkan Modul](#struktur-project-berdasarkan-modul)
+6. [Penjelasan Setiap Modul](#penjelasan-setiap-modul)
 7. [Algoritma Dijkstra](#algoritma-dijkstra)
 8. [Alur Kerja Sistem](#alur-kerja-sistem)
 9. [Analisis Kompleksitas](#analisis-kompleksitas)
@@ -23,8 +23,7 @@ Selain pencarian rute, project ini juga memiliki fitur visualisasi peta, animasi
 11. [Cara Menjalankan Project](#cara-menjalankan-project)
 12. [Cara Menjalankan Analisis Kompleksitas](#cara-menjalankan-analisis-kompleksitas)
 13. [Contoh Output Analisis](#contoh-output-analisis)
-14. [Pembagian Modul Project](#pembagian-modul-project)
-15. [Kesimpulan](#kesimpulan)
+14. [Kesimpulan](#kesimpulan)
 
 ---
 
@@ -135,121 +134,211 @@ A -> C = 30
 
 ---
 
-## Struktur Folder
+## Struktur Project Berdasarkan Modul
 
-Struktur umum project:
+Struktur project dibuat berdasarkan modul agar setiap bagian program memiliki tugas yang jelas.
 
-```text
+````text
 PROJEK-PAA-HDP/
 │
-├── algo/
-│   ├── dijkstra.py
-│   └── pencarian.py
+├── 01_MODUL_KONSTRUKSI_PETA/
+│   ├── map/
+│   │   ├── grid/
+│   │   │   └── grid_kota.py
+│   │   ├── roads.py
+│   │   └── render/
+│   └── README_MODUL.md
 │
-├── map/
-│   ├── grid/
-│   │   └── grid_kota.py
-│   ├── roads.py
-│   └── render/
+├── 02_MODUL_VISUALISASI_KENDARAAN/
+│   ├── ui/
+│   │   └── app.py
+│   ├── map/
+│   │   ├── kamera.py
+│   │   └── render/
+│   └── README_MODUL.md
 │
-├── ui/
-│   └── app.py
+├── 03_MODUL_ALGORITMA_DIJKSTRA/
+│   ├── algo/
+│   │   ├── dijkstra.py
+│   │   └── pencarian.py
+│   └── README_MODUL.md
 │
-├── analisis_kompleksitas.py
+├── 04_MODUL_ANALISIS_KOMPLEKSITAS/
+│   ├── analisis_kompleksitas.py
+│   └── README_MODUL.md
 │
+├── main.py
 └── README.md
-```
 
-Catatan: struktur folder dapat berbeda sedikit tergantung versi project, tetapi secara umum project memiliki bagian algoritma, peta, tampilan, dan analisis kompleksitas.
 
----
+## Penjelasan Setiap Modul
 
-## Penjelasan Folder dan File
+### 1. Modul Konstruksi Peta
 
-### 1. Folder `algo/`
+Modul konstruksi peta bertugas membangun peta kota yang digunakan sebagai dasar pencarian rute. Pada modul ini, jalan dibentuk menjadi beberapa bagian seperti jalan luar, jalan dalam, jalan horizontal, jalan vertikal, dan jalan penghubung.
 
-Folder ini berisi file yang berhubungan dengan algoritma pencarian rute.
+Tugas utama modul konstruksi peta:
 
-#### `dijkstra.py`
+1. Membuat struktur peta kota.
+2. Membentuk jalan luar atau ring road.
+3. Membentuk jalan bagian dalam.
+4. Memberikan variasi bentuk jalan menggunakan noise.
+5. Membuat jalan horizontal dan vertikal.
+6. Melakukan clipping agar jalan tetap berada pada area yang valid.
+7. Membentuk jalan penghubung.
+8. Menghasilkan data jalan untuk dikonversi menjadi graph.
 
-File ini berisi implementasi utama algoritma Dijkstra. Fungsi di dalam file ini digunakan untuk mencari rute terpendek berdasarkan node dan edge yang sudah terbentuk.
-
-Secara umum, file ini bertugas untuk:
-
-1. Membuat graph dari data node dan edge.
-2. Menentukan node awal dan node tujuan.
-3. Menghitung jarak antar node.
-4. Menjalankan proses pencarian rute.
-5. Menghasilkan rute terpendek.
-
-#### `pencarian.py`
-
-File ini berisi fungsi pendukung untuk proses pencarian. File ini dapat digunakan untuk menghubungkan proses pencarian rute dengan bagian tampilan atau sistem utama.
-
----
-
-### 2. Folder `map/`
-
-Folder ini berisi file yang berhubungan dengan pembuatan dan pengolahan peta.
-
-Folder ini bertugas untuk:
-
-1. Membentuk struktur peta kota.
-2. Membuat jalan.
-3. Membuat variasi bentuk jalan.
-4. Menghasilkan node dan edge.
-5. Menyediakan data graph untuk algoritma Dijkstra.
-
-#### `grid/grid_kota.py`
-
-File ini digunakan untuk membangun peta kota. Di dalam file ini terdapat proses pembentukan grid, jalan, node, dan edge.
-
-Contoh penggunaan:
+Contoh bagian kode yang berhubungan dengan modul konstruksi peta:
 
 ```python
 grid = GridKota()
 grid.bangun(seed=seed, noise=noise, rapat=rapat)
+````
+
+Penjelasan:
+
+1. `GridKota()` digunakan untuk membuat objek peta.
+2. `bangun()` digunakan untuk membangun peta berdasarkan parameter tertentu.
+3. `seed` digunakan agar bentuk peta dapat diuji dengan variasi berbeda.
+4. `noise` digunakan untuk membuat bentuk jalan lebih bervariasi.
+5. `rapat` digunakan untuk mengatur kerapatan jalan.
+
+---
+
+### 2. Modul Konversi Graph
+
+Modul konversi graph bertugas mengubah struktur jalan menjadi data node dan edge. Data inilah yang menjadi input utama bagi algoritma Dijkstra.
+
+Tugas utama modul konversi graph:
+
+1. Mengambil titik-titik jalan dari peta.
+2. Mengubah titik jalan menjadi node.
+3. Menghubungkan node dengan edge.
+4. Menghitung bobot edge berdasarkan jarak antar node.
+5. Menyediakan data graph untuk algoritma Dijkstra.
+
+Contoh kode:
+
+```python
 nodes, edges = grid.get_vector_dijkstra()
 ```
 
 Penjelasan:
 
-1. `GridKota()` digunakan untuk membuat objek peta kota.
-2. `bangun()` digunakan untuk membangun peta berdasarkan parameter tertentu.
-3. `get_vector_dijkstra()` digunakan untuk mengambil node dan edge yang akan dipakai oleh Dijkstra.
-
-#### `roads.py`
-
-File ini berisi proses pembentukan jalan. Jalan yang dibuat dapat berupa jalan luar, jalan dalam, jalan horizontal, jalan vertikal, atau jalan penghubung.
-
-#### Folder `render/`
-
-Folder ini berhubungan dengan proses visualisasi atau tampilan peta.
+1. `nodes` berisi daftar titik jalan atau persimpangan.
+2. `edges` berisi daftar ruas jalan yang menghubungkan antar node.
+3. Data ini kemudian digunakan sebagai input pencarian rute.
 
 ---
 
-### 3. Folder `ui/`
+### 3. Modul Algoritma Dijkstra
 
-Folder ini berisi file yang berhubungan dengan tampilan program dan interaksi pengguna.
+Modul algoritma Dijkstra bertugas mencari rute terpendek dari titik awal menuju titik tujuan berdasarkan graph yang sudah terbentuk.
 
-#### `app.py`
+Tugas utama modul Dijkstra:
 
-File ini biasanya menjadi bagian utama untuk menjalankan tampilan aplikasi. Di dalam file ini terdapat pengaturan tampilan peta, rute, kendaraan, tombol, serta game loop atau animasi.
+1. Menerima input node dan edge.
+2. Membentuk graph dari data tersebut.
+3. Menentukan node awal terdekat.
+4. Menentukan node tujuan terdekat.
+5. Menghitung jarak terpendek.
+6. Menyimpan rute yang dilalui.
+7. Mengembalikan hasil rute dan total jarak.
 
-Secara umum, file ini bertugas untuk:
+Contoh pemanggilan fungsi Dijkstra:
 
-1. Menampilkan peta.
-2. Menampilkan titik awal dan tujuan.
-3. Menampilkan rute hasil Dijkstra.
-4. Menjalankan animasi kendaraan.
-5. Mengatur tombol start, stop, dan reset.
-6. Menghubungkan tampilan dengan algoritma pencarian rute.
+```python
+rute, total_jarak = cari_rute_koordinat(nodes, edges, start_xy, goal_xy)
+```
+
+Penjelasan:
+
+1. `nodes` adalah daftar titik jalan.
+2. `edges` adalah daftar ruas jalan.
+3. `start_xy` adalah koordinat awal.
+4. `goal_xy` adalah koordinat tujuan.
+5. `rute` adalah hasil jalur yang ditemukan.
+6. `total_jarak` adalah total jarak dari rute tersebut.
 
 ---
 
-### 4. File `analisis_kompleksitas.py`
+### 4. Modul Visualisasi
 
-File ini digunakan untuk melakukan analisis kompleksitas algoritma Dijkstra. File ini menjalankan pengujian dengan beberapa seed peta, lalu menampilkan jumlah node, jumlah edge, estimasi kompleksitas, total jarak, jumlah titik rute, dan waktu eksekusi.
+Modul visualisasi bertugas menampilkan hasil project secara visual kepada pengguna. Modul ini biasanya berada pada bagian `ui/app.py`.
+
+Tugas utama modul visualisasi:
+
+1. Menampilkan peta kota.
+2. Menampilkan node dan edge.
+3. Menampilkan titik awal dan tujuan.
+4. Menampilkan rute hasil Dijkstra.
+5. Menampilkan kendaraan.
+6. Mengatur tampilan program agar mudah digunakan.
+
+Contoh fungsi modul visualisasi:
+
+```text
+Menampilkan peta -> memilih titik awal dan tujuan -> menampilkan rute -> menjalankan animasi
+```
+
+---
+
+### 5. Modul Animasi Kendaraan
+
+Modul animasi kendaraan bertugas menggerakkan kendaraan mengikuti rute hasil pencarian Dijkstra. Kendaraan bergerak dari titik awal menuju titik tujuan berdasarkan daftar titik rute.
+
+Tugas utama modul animasi kendaraan:
+
+1. Mengambil rute hasil Dijkstra.
+2. Mengatur posisi kendaraan.
+3. Menghitung arah kendaraan.
+4. Mengatur rotasi kendaraan saat berbelok.
+5. Menjalankan game loop animasi.
+6. Mengatur start, pause, stop, dan reset animasi.
+
+Contoh alur animasi:
+
+```text
+Ambil rute -> kendaraan mulai bergerak -> mengikuti titik rute -> berbelok -> sampai tujuan
+```
+
+---
+
+### 6. Modul Analisis Kompleksitas
+
+Modul analisis kompleksitas bertugas menguji performa algoritma Dijkstra. Modul ini menghitung jumlah node, jumlah edge, estimasi kompleksitas, total jarak, jumlah titik rute, dan waktu eksekusi.
+
+Tugas utama modul analisis kompleksitas:
+
+1. Membangun peta berdasarkan seed.
+2. Mengambil node dan edge dari peta.
+3. Memilih titik awal dan tujuan.
+4. Menjalankan algoritma Dijkstra.
+5. Menghitung estimasi kompleksitas.
+6. Mengukur waktu eksekusi.
+7. Menampilkan hasil analisis.
+
+Contoh kode:
+
+```python
+def estimasi_kompleksitas(v, e):
+    if v <= 1:
+        return 0
+    return int((v + e) * math.log2(v))
+```
+
+Rumus yang digunakan:
+
+```text
+O((V + E) log V)
+```
+
+Keterangan:
+
+```text
+V = jumlah node
+E = jumlah edge
+```
 
 ---
 
@@ -308,28 +397,22 @@ Alur kerja sistem pada project ini adalah:
 Mulai
   |
   v
-Bangun peta kota
+Modul Konstruksi Peta
   |
   v
-Bentuk jalan
+Modul Konversi Graph
   |
   v
-Konversi jalan menjadi node dan edge
+Modul Algoritma Dijkstra
   |
   v
-Tentukan titik awal dan titik tujuan
+Modul Visualisasi Rute
   |
   v
-Jalankan algoritma Dijkstra
+Modul Animasi Kendaraan
   |
   v
-Dapatkan rute terpendek
-  |
-  v
-Tampilkan rute pada peta
-  |
-  v
-Gerakkan kendaraan mengikuti rute
+Modul Analisis Kompleksitas
   |
   v
 Selesai
@@ -337,13 +420,12 @@ Selesai
 
 Penjelasan alur:
 
-1. Sistem membangun peta kota terlebih dahulu.
-2. Jalan pada peta dibuat dan divariasikan.
-3. Jalan dikonversi menjadi node dan edge.
-4. Pengguna atau sistem menentukan titik awal dan tujuan.
-5. Algoritma Dijkstra mencari rute terpendek.
-6. Rute hasil pencarian divisualisasikan pada peta.
-7. Kendaraan bergerak mengikuti rute tersebut.
+1. Modul konstruksi peta membangun peta kota.
+2. Modul konversi graph mengubah jalan menjadi node dan edge.
+3. Modul Dijkstra mencari rute terpendek.
+4. Modul visualisasi menampilkan hasil rute.
+5. Modul animasi kendaraan menjalankan kendaraan mengikuti rute.
+6. Modul analisis kompleksitas mengukur performa algoritma.
 
 ---
 
@@ -453,112 +535,6 @@ Rumus tersebut mewakili kompleksitas:
 O((V + E) log V)
 ```
 
-### Fungsi Uji Satu Seed
-
-```python
-def uji_satu_seed(seed=42, noise=40, rapat=168):
-    grid = GridKota()
-    grid.bangun(seed=seed, noise=noise, rapat=rapat)
-
-    nodes, edges = grid.get_vector_dijkstra()
-
-    if len(nodes) < 2:
-        return None
-```
-
-Fungsi ini digunakan untuk melakukan pengujian pada satu bentuk peta berdasarkan seed tertentu.
-
-Penjelasan:
-
-1. Program membuat objek `GridKota`.
-2. Program membangun peta menggunakan `grid.bangun()`.
-3. Program mengambil node dan edge menggunakan `get_vector_dijkstra()`.
-4. Jika node kurang dari 2, maka pengujian tidak bisa dilakukan.
-
-### Pemilihan Titik Awal dan Tujuan
-
-```python
-awal = random.choice(nodes)
-tujuan = random.choice(nodes)
-
-for _ in range(300):
-    kandidat = random.choice(nodes)
-    jarak = math.hypot(kandidat[1] - awal[1], kandidat[2] - awal[2])
-    if jarak > 550:
-        tujuan = kandidat
-        break
-```
-
-Bagian ini digunakan untuk memilih titik awal dan titik tujuan secara acak.
-
-Penjelasan:
-
-1. `awal` dipilih secara acak dari daftar node.
-2. `tujuan` juga dipilih secara acak dari daftar node.
-3. Program mencoba mencari tujuan yang cukup jauh dari titik awal.
-4. Jarak dihitung menggunakan `math.hypot()`.
-5. Jika jaraknya lebih dari 550 piksel, titik tersebut digunakan sebagai tujuan.
-6. Perulangan dibatasi sebanyak 300 kali agar proses tidak berjalan terus-menerus.
-
-Tujuan dari proses ini adalah agar rute yang diuji tidak terlalu pendek. Jika rute terlalu pendek, maka waktu eksekusi bisa sangat kecil dan kurang mewakili performa algoritma.
-
-### Menjalankan Dijkstra dan Menghitung Waktu
-
-```python
-start_xy = (awal[1], awal[2])
-goal_xy = (tujuan[1], tujuan[2])
-
-t0 = time.perf_counter()
-rute, total_jarak = cari_rute_koordinat(nodes, edges, start_xy, goal_xy)
-t1 = time.perf_counter()
-```
-
-Bagian ini adalah inti dari pengujian.
-
-Penjelasan:
-
-1. `start_xy` menyimpan koordinat titik awal.
-2. `goal_xy` menyimpan koordinat titik tujuan.
-3. `t0` menyimpan waktu sebelum Dijkstra dijalankan.
-4. Fungsi `cari_rute_koordinat()` menjalankan pencarian rute.
-5. `t1` menyimpan waktu setelah Dijkstra selesai.
-6. Selisih `t1 - t0` digunakan untuk menghitung waktu eksekusi.
-
-Waktu eksekusi dihitung dalam milidetik dengan rumus:
-
-```python
-(t1 - t0) * 1000
-```
-
-### Menyimpan Hasil Pengujian
-
-```python
-v = len(nodes)
-e = len(edges)
-
-return {
-    "seed": seed,
-    "node_v": v,
-    "edge_e": e,
-    "estimasi_big_o": estimasi_kompleksitas(v, e),
-    "jumlah_titik_rute": len(rute),
-    "total_jarak": total_jarak,
-    "waktu_ms": (t1 - t0) * 1000,
-}
-```
-
-Bagian ini menyimpan hasil pengujian dalam bentuk dictionary.
-
-Data yang disimpan adalah:
-
-1. `seed`, yaitu variasi peta yang digunakan.
-2. `node_v`, yaitu jumlah node.
-3. `edge_e`, yaitu jumlah edge.
-4. `estimasi_big_o`, yaitu estimasi kompleksitas relatif.
-5. `jumlah_titik_rute`, yaitu jumlah titik pada rute hasil Dijkstra.
-6. `total_jarak`, yaitu total jarak rute.
-7. `waktu_ms`, yaitu waktu eksekusi dalam milidetik.
-
 ---
 
 ## Cara Menjalankan Project
@@ -643,36 +619,6 @@ Catatan: angka pada output dapat berbeda tergantung seed, bentuk peta, jumlah no
 
 ---
 
-## Pembagian Modul Project
-
-Project ini dapat dibagi menjadi beberapa modul utama:
-
-### 1. Modul Konstruksi Peta
-
-Modul ini bertugas membangun peta kota, membuat jalan, mengatur variasi bentuk jalan, dan menghasilkan struktur jalan yang dapat digunakan oleh sistem.
-
-### 2. Modul Konversi Graph
-
-Modul ini bertugas mengubah jalan menjadi node dan edge. Data node dan edge tersebut menjadi input utama untuk algoritma Dijkstra.
-
-### 3. Modul Algoritma Dijkstra
-
-Modul ini bertugas mencari rute terpendek dari titik awal menuju titik tujuan berdasarkan graph yang sudah terbentuk.
-
-### 4. Modul Visualisasi
-
-Modul ini bertugas menampilkan peta, node, edge, rute, dan kendaraan pada tampilan program.
-
-### 5. Modul Animasi Kendaraan
-
-Modul ini bertugas menggerakkan kendaraan mengikuti rute hasil pencarian. Modul ini juga mengatur pergerakan agar kendaraan terlihat berjalan mengikuti jalur.
-
-### 6. Modul Analisis Kompleksitas
-
-Modul ini bertugas menghitung estimasi kompleksitas dan waktu eksekusi algoritma Dijkstra. Modul ini digunakan untuk membuktikan efisiensi algoritma berdasarkan jumlah node dan edge.
-
----
-
 ## Kesimpulan
 
 Project ini berhasil menerapkan algoritma Dijkstra untuk mencari rute terpendek pada peta kota berbasis graph. Peta kota dibentuk dari node dan edge, kemudian digunakan sebagai input untuk proses pencarian rute.
@@ -692,7 +638,7 @@ E = jumlah edge
 
 Berdasarkan analisis kompleksitas, semakin banyak node dan edge pada peta, maka proses pencarian rute akan semakin berat. Namun, karena Dijkstra menggunakan priority queue atau heap, algoritma tetap lebih efisien dibandingkan brute force.
 
-Secara keseluruhan, project ini menunjukkan hubungan antara pembentukan peta, graph, algoritma Dijkstra, visualisasi rute, animasi kendaraan, dan analisis kompleksitas dalam satu sistem pencarian rute terpendek.
+Secara keseluruhan, project ini menunjukkan hubungan antara konstruksi peta, konversi graph, algoritma Dijkstra, visualisasi rute, animasi kendaraan, dan analisis kompleksitas dalam satu sistem pencarian rute terpendek.
 
 ---
 
@@ -700,7 +646,7 @@ Secara keseluruhan, project ini menunjukkan hubungan antara pembentukan peta, gr
 
 Project ini dibuat untuk tugas mata kuliah **Perancangan dan Analisis Algoritma (PAA)**.
 
-```
-Nama  : Kelompok Project PAA
+```text
+Nama  : Kelompok HDP
 Topik : Pencarian Rute Terpendek Menggunakan Algoritma Dijkstra
 ```
